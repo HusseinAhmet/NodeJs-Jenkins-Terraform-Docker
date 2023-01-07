@@ -11,6 +11,8 @@ output "db_instance_endpoint" {
 output "db_instance_username" {
   description = "The master username for the database"
   value       = module.rds-redis.db_instance_username
+  sensitive   = true
+
 }
 
 output "db_instance_password" {
