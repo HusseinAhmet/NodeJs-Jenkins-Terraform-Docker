@@ -69,6 +69,11 @@ tools {
                 }
                 failure {
                       slackSend color: 'bad', message: 'Deploy failure '
+                      sh """
+                      cd Terraform/ 
+                      terraform destroy -var-file varValues.tfvars -auto-approve
+                      """
+                      
                 }
                 
             }
