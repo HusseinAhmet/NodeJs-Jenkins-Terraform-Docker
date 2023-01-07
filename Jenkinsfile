@@ -1,6 +1,8 @@
 pipeline {
     agent {label 'ec2'}
-
+tools {
+  terraform 'terraform'
+}
     stages {
         stage('Docker Image Build') {
             steps {
