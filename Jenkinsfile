@@ -48,6 +48,10 @@ tools {
                 }
                 failure {
                       slackSend color: 'bad', message: 'Create Infrastructure failure '
+                    sh """
+                      cd Terraform/ 
+                      terraform destroy -var-file varValues.tfvars -auto-approve
+                      """
                 }
                 
             }

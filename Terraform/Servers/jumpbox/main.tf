@@ -2,7 +2,7 @@ resource "aws_instance" "bastionServer" {
   ami = var.AmiID
   instance_type = var.InstanceType
   subnet_id = var.pubSub1ID
-  security_groups=[ aws_security_group.bastionSecGrp.id]
+  vpc_security_group_ids = [ aws_security_group.bastionSecGrp.id]
   key_name = var.keyPair
 
   tags = {
@@ -11,6 +11,17 @@ resource "aws_instance" "bastionServer" {
      provisioner "local-exec" {
    command = "echo ${self.public_ip} >> inventory.txt"
  }
+ provisioner "file" {
+    source      = "/home/ubuntu/train-key.pem"
+    destination = "/home/ubuntu/train-key.pem"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file("/home/ubuntu/train-key.pem")}"
+      host        = "${self.public_dns}"
+    }
+  }
 }
 
 resource "aws_security_group" "bastionSecGrp" {
