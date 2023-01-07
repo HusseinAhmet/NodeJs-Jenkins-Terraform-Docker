@@ -6,11 +6,11 @@ pipeline {
             steps {
        
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                 sh """
+                 sh '''
                     docker build . -t hahmet2214/nodeapp:1.3
-                    docker login -u "\${USERNAME}" -p "\${PASSWORD}"
+                    docker login -u "${USERNAME}" -p "${PASSWORD}"
                     docker push hahmet2214/nodeapp:1.3
-                """
+                '''
                 }
 
             }
@@ -28,15 +28,15 @@ pipeline {
             steps {
        
                 
-                 sh """
+                 sh '''
                     cd Terraform/
                     terraform init 
                     terraform apply -var-file varValues.tfvars -auto-approve
                     echo "RDS_PASSWORD=$(terraform output db_instance_password)" >> rdsenv.txt
-                    echo "[nodes] ">> "\${WORKSPACE}"/inventory.txt 
-                    aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=\$(terraform output priv-sub-1-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "\${WORKSPACE}"/inventory.txt 
-                    aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=\$(terraform output priv-sub-2-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "\${WORKSPACE}"/inventory.txt 
-                """
+                    echo "[nodes] ">> "${WORKSPACE}"/inventory.txt 
+                    aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-1-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "${WORKSPACE}"/inventory.txt 
+                    aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-2-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "${WORKSPACE}"/inventory.txt 
+                '''
                 
 
             }
