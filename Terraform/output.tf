@@ -24,8 +24,8 @@ output "db_instance_port" {
   description = "The database port"
   value       = module.rds-redis.db_instance_port
 }
-output "jumpbox-pubID" {
-  value= module.jumpbox.jumpbox-pubID
+output "jumpbox-pubIP" {
+  value= module.jumpbox.jumpbox-pubIP
 }
 output "vpc-id" {
   value = module.vpc.vpc-id

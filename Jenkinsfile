@@ -35,9 +35,12 @@ tools {
                     terraform init 
                     terraform apply -var-file varValues.tfvars -auto-approve
                     echo "RDS_PASSWORD=$(terraform output db_instance_password)" >> rdsenv.txt
-                    echo "[nodes] ">> "${WORKSPACE}"/inventory.txt 
-                    aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-1-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "${WORKSPACE}"/inventory.txt 
                     aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-2-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "${WORKSPACE}"/inventory.txt 
+                    aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-1-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> "${WORKSPACE}"/inventory.txt 
+                    echo "[nodes:vars] ">> "${WORKSPACE}"/inventory.txt 
+                    echo "ansible_user=ubuntu ">> "${WORKSPACE}"/inventory.txt 
+                    echo "ansible_port=22">> "${WORKSPACE}"/inventory.txt 
+                    echo "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand=\"ssh -p 22 i /home/ubuntu/train-key -J ubuntu@$(terraform output jumpbox-pubIP)\"'   ">>  "${WORKSPACE}"/inventory.txt
                 '''
                 
 
