@@ -1,8 +1,1 @@
 [nodes]
-
-
-[nodes:vars]
-ansible_user=ubuntu
-ansible_port=22
-ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -p 22 i /home/ubuntu/train-key -J ubuntu@172.17.0.2"'
-echo "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand=\"ssh -p 22 i /home/ubuntu/train-key -J ubuntu@$(date)\"'   ">>
