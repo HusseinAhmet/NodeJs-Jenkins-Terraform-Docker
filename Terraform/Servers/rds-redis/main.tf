@@ -16,7 +16,7 @@ resource "aws_db_instance" "rds" {
    provisioner "local-exec" {
 
      command = <<EOT
-      echo "RDS_HOSTNAME=${self.address} " >> rdsenv.txt;
+      echo "RDS_HOSTNAME=${self.address} " > rdsenv.txt;
       echo "RDS_USERNAME=${self.username} " >> rdsenv.txt;
       echo "RDS_PORT=${self.port} " >> rdsenv.txt;
    EOT
