@@ -1,1 +1,2 @@
-[nodes]
+server1
+server2
