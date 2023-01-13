@@ -8,9 +8,7 @@ var connection = mysql.createConnection({
   user     : process.env.RDS_USERNAME,
   password : process.env.RDS_PASSWORD,
   port     : process.env.RDS_PORT,
-  ssl  : {
-    ca : fs.readFileSync('/home/ubuntu/rds-combined-ca-bundle.pem')
-  }
+
 });
 app.get("/db", (req, res) => {
 
