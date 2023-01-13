@@ -63,7 +63,7 @@ tools {
                 
                  sh """
 
-                    ansible-playbook priv-server.yml -i inventory.txt -e workspace="${WORKSPACE}" --private-key /home/ubuntu/train-key.pem 
+                    ansible-playbook priv-server.yml -i inventory.txt  --private-key /home/ubuntu/train-key.pem 
                 """
                 
 
