@@ -34,7 +34,7 @@ tools {
                     cd Terraform/
                     terraform init 
                     terraform apply -var-file varValues.tfvars -auto-approve
-                    echo "RDS_PASSWORD=$(terraform output -raw db_instance_password)" >> rdsenv.txt
+                    echo "RDS_PASSWORD=$(terraform output -raw db_instance_password)" >> rdsenv.list
                     ansible localhost -m lineinfile -a "path="${WORKSPACE}"/ssh-config  regexp='^.*b1 ' line='  HostName $(terraform output -raw jumpbox-pubIP)' "
                     ansible localhost -m lineinfile -a "path="${WORKSPACE}"/ssh-config  regexp='^.*s1 ' line='  HostName $(aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-1-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)' "                
                     ansible localhost -m lineinfile -a "path="${WORKSPACE}"/ssh-config  regexp='^.*s2 ' line='  HostName $(aws ec2 describe-instances --region eu-west-3 --filters "Name=subnet-id,Values=$(terraform output priv-sub-2-id ) " --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)' "
