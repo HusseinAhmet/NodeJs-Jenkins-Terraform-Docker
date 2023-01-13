@@ -74,10 +74,10 @@ tools {
                 }
                 failure {
                       slackSend color: 'bad', message: 'Deploy failure '
-                      sh """
-                      cd Terraform/ 
-                      terraform destroy -var-file varValues.tfvars -auto-approve
-                      """
+                    //   sh """
+                    //   cd Terraform/ 
+                    //   terraform destroy -var-file varValues.tfvars -auto-approve
+                    //   """
                       
                 }
                 
@@ -85,4 +85,14 @@ tools {
         }
 
     }
+    // stages{
+    //     stage('delete iaac'){
+    //         steps{
+    //                   sh """
+    //                   cd Terraform/ 
+    //                   terraform destroy -var-file varValues.tfvars -auto-approve
+    //                   """
+    //         }
+    //     }
+    // }
 }
