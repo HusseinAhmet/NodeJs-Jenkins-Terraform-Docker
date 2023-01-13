@@ -26,11 +26,11 @@
         enabled: yes 
     - name: copy database environment file
       copy:
-        src: ./Terraform/rdsenv.txt
-        dest: /home/ubuntu/rdsenv.txt
+        src: ./Terraform/rdsenv.list
+        dest: /home/ubuntu/rdsenv.list
     # - name: Download RDS certificate
     #   get_url:
     #     url: https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem
     #     dest: /home/ubuntu/
     - name: Run docker container
-      shell: 'docker run -d --env-file /home/ubuntu/rdsenv.txt -p 3000:3000 hahmet2214/nodeapp:1.3' 
+      shell: 'docker run -d --env-file /home/ubuntu/rdsenv.list -p 3000:3000 hahmet2214/nodeapp:1.3' 
