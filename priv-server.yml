@@ -1,3 +1,4 @@
+## this for mstf 
 - name: slave
   hosts: all
   remote_user: ubuntu
